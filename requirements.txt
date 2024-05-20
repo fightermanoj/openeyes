@@ -1,0 +1,7 @@
+streamlit
+pillow
+streamlit-drawable-canvas
+streamlit-js-eval
+streamlit-folium
+folium
+pandas
