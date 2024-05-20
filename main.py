@@ -52,7 +52,7 @@ if captured:
     stroke_width= stroke_width,
     stroke_color= "#FF0000",
     background_color= "#EEEEEE",
-    background_image=Image.open(captured) """if captured else None""",
+    background_image=Image.open(captured),
     update_streamlit=True,
     height=400,
     drawing_mode=drawing_mode,
