@@ -32,8 +32,9 @@ st.write(' An Ai Based Solution for solving **Visiual Pollution**')
 st.divider()
 captured = st.camera_input("### locate the Illegal Hoarding")
 
-st.divider()
-st.write("## Please Mask the Illegal Hoarding")
+if captured:
+    st.divider()
+    st.write("## Please Mask the Illegal Hoarding")
 if captured:
     stroke_width = st.slider("Stroke width: ", 1, 10, 2)
 
