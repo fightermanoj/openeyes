@@ -9,7 +9,10 @@ import json
 import folium
 import pandas as pd
 
+
 loc = False
+done = False
+re_run = False
 
 def canvas_to_image(canvas_result):
     canvas_data = canvas_result.image_data.astype("uint8")
@@ -22,6 +25,7 @@ def user_input():
     context = st.text_input("Because...")
     if st.button("Submit"):
         st.session_state.user_input = context
+        re_run = True
         # Close the pop-up dialog by rerunning the script
         st.experimental_rerun()
     return(context)
@@ -32,22 +36,26 @@ st.write(' An Ai Based Solution for solving **Visiual Pollution**')
 st.divider()
 captured = st.camera_input("### locate the Illegal Hoarding")
 
+st.divider()
+
 if captured:
-    st.divider()
     st.write("## Please Mask the Illegal Hoarding")
-if captured:
     stroke_width = st.slider("Stroke width: ", 1, 10, 2)
+    drawing_mode = st.selectbox(
+    "Drawing tool:",
+    ("rect", "line", "freedraw", "circle", "transform", "polygon", "point"),
+    )
 
     # Create a canvas component
     canvas_result = st_canvas(
-    fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
+    fill_color="rgba(255, 165, 0, 0.15)",  # Fixed fill color with some opacity
     stroke_width= stroke_width,
     stroke_color= "#FF0000",
     background_color= "#EEEEEE",
     background_image=Image.open(captured) if captured else None,
     update_streamlit=True,
     height=400,
-    drawing_mode="rect",
+    drawing_mode=drawing_mode,
     key="canvas",
     )
 
@@ -69,9 +77,10 @@ if captured:
             combined_image = Image.alpha_composite(captured_image, overlay_image)
             # st.image(combined_image)
             user_input()
-    st.divider()
-
+        
+    
     if st.session_state.user_input:
+        st.divider()
         st.write("### User Context")
         st.write(f"```\n{st.session_state.user_input}   ")
 
@@ -101,3 +110,5 @@ if captured:
 
 
 
+# git config --global user.email "you@example.com"
+#git config --global user.name "Your Name"
